@@ -67,16 +67,16 @@ public void oscEvent(OscMessage theOscMessage) {
     /* check if the typetag is the right one. */
      //xy pad writes to values to one address
       
-      x1 = theOscMessage.get(0).floatValue();
-      y1= theOscMessage.get(1).floatValue();//XYpad[0] = theOscMessage.get(1).floatValue(); //buttons dont work if i put this(get(1)) into a float at begining of function...???
+      x1 = theOscMessage.get(1).floatValue();
+      y1= theOscMessage.get(0).floatValue();//XYpad[0] = theOscMessage.get(1).floatValue(); //buttons dont work if i put this(get(1)) into a float at begining of function...???
       println(x1+","+y1);
     }
      if(theOscMessage.checkAddrPattern("/2/xy")==true) {
     /* check if the typetag is the right one. */
      //xy pad writes to values to one address
       
-      x2 = theOscMessage.get(0).floatValue();
-      y2= theOscMessage.get(1).floatValue();//XYpad[0] = theOscMessage.get(1).floatValue(); //buttons dont work if i put this(get(1)) into a float at begining of function...???
+      x2 = theOscMessage.get(1).floatValue();
+      y2= theOscMessage.get(0).floatValue();//XYpad[0] = theOscMessage.get(1).floatValue(); //buttons dont work if i put this(get(1)) into a float at begining of function...???
       println(x1+","+y1);
     }
 
