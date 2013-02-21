@@ -24,6 +24,7 @@ public class mosaic extends PApplet {
 
 OscP5 oscP5;
 
+boolean debug=false;
 
 
 PImage i1, syd, a,s;
@@ -58,6 +59,10 @@ public void oscEvent(OscMessage theOscMessage) {
 
     String addr = theOscMessage.addrPattern();
     println(addr);
+    if (debug) {
+      text("message OSC : "+ addr , 20, 20);
+    }
+    
     if(theOscMessage.checkAddrPattern("/1/xy")==true) {
     /* check if the typetag is the right one. */
      //xy pad writes to values to one address
@@ -77,6 +82,10 @@ public void oscEvent(OscMessage theOscMessage) {
 
 }
 
+public void keyPressed() {
+  if (key == 'd' || key == 'D')
+    debug=!debug;
+}
   static public void main(String args[]) {
     PApplet.main(new String[] { "--present", "--bgcolor=#666666", "--hide-stop", "mosaic" });
   }

@@ -2,6 +2,7 @@ import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
 
+boolean debug=false;
 
 
 PImage i1, syd, a,s;
@@ -36,6 +37,10 @@ void oscEvent(OscMessage theOscMessage) {
 
     String addr = theOscMessage.addrPattern();
     println(addr);
+    if (debug) {
+      text("message OSC : "+ addr , 20, 20);
+    }
+    
     if(theOscMessage.checkAddrPattern("/1/xy")==true) {
     /* check if the typetag is the right one. */
      //xy pad writes to values to one address
@@ -55,3 +60,7 @@ void oscEvent(OscMessage theOscMessage) {
 
 }
 
+public void keyPressed() {
+  if (key == 'd' || key == 'D')
+    debug=!debug;
+}
