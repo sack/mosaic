@@ -49,8 +49,8 @@ public void draw()
   //ellipse(mouseX, mouseY, 400, 400);
   image(s, map(x1,0,1,0,width)-300, map(y1,0,1,0,height)-300,600,600);
   image(s, map(x2,0,1,0,width)-300, map(y2,0,1,0,height)-300,600,600);
-    image(s, map(x1,0,1,0,width)-300, map(y1,0,1,0,height)-300,600,600);
-  image(s, map(x2,0,1,0,width)-300, map(y2,0,1,0,height)-300,600,600);
+    image(s, map(x1,0,1,0,width)-300, map(y1,1,0,0,height)-300,600,600);
+  image(s, map(x2,0,1,0,width)-300, map(y2,1,0,0,height)-300,600,600);
   blend(a, 0, 0, 1280, 800, 0, 0, 1280, 800, DARKEST);
 }
 
