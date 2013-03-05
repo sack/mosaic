@@ -9,17 +9,35 @@ PImage i1, syd, a,s;
 
 float x1,y1,x2,y2;
 
+int currentImage;
+int timePoint;
+
+final int maxImages=2;   //number of images to display
+final int interval=30000; //milliseconds!
+
 
 void setup()
 {
-  size(1280, 800);
+  size(3072, 768);
   oscP5 = new OscP5(this,12000);
-  a = loadImage("1.png");
+ 
   s = loadImage("spot2.png");
+  
+  currentImage=1;
+//get current 'time
+timePoint=millis();
+  
 }
 void draw()
 {
   background(0);
+  //have we reached time for next image?
+  if(millis()>timePoint){
+    showNext();
+    //get time for next image
+    timePoint=millis() + interval;
+  }
+  
   tint(255, 126);  // Apply transparency without changing color
   image(a, 0, 0);
   noStroke();
@@ -29,7 +47,7 @@ void draw()
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
   image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
-  blend(a, 0, 0, 1280, 800, 0, 0, 1280, 800, DARKEST);
+  blend(a, 0, 0, 3072, 768, 0, 0, 3072, 768, DARKEST);
 }
 
 
@@ -64,3 +82,21 @@ public void keyPressed() {
   if (key == 'd' || key == 'D')
     debug=!debug;
 }
+
+void showNext(){
+ 
+  String imageFilename;
+ 
+  //load file
+  imageFilename="mosa"+str(currentImage) + ".png";
+  a=loadImage(imageFilename);
+  
+  //set up for next image
+  currentImage++;
+  //reached last image?
+  if(currentImage>maxImages) currentImage=1;
+  //display
+  //image(oneImage, 0, 0);
+ 
+}
+
