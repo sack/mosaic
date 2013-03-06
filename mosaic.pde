@@ -13,7 +13,7 @@ int currentImage;
 int timePoint;
 
 final int maxImages=2;   //number of images to display
-final int interval=30000; //milliseconds!
+final int interval=60000; //milliseconds! delay switch image
 
 
 void setup()
@@ -43,6 +43,10 @@ void draw()
   noStroke();
   fill(255);
   //ellipse(mouseX, mouseY, 400, 400);
+  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
+  image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
+  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
+  image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
   image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
   image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
