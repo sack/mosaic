@@ -9,16 +9,16 @@ PImage i1, syd, a,s;
 
 float x1,y1,x2,y2;
 
-int currentImage;
+int currentImage = 0;
 int timePoint;
 
-final int maxImages=2;   //number of images to display
+int maxImages;   //number of images to display
 final int interval=60000; //milliseconds! delay switch image
 
 
 void setup()
 {
-  size(3072, 768);
+  size(1280, 800, OPENGL);
   oscP5 = new OscP5(this,12000);
  
   s = loadImage("spot2.png");
@@ -26,7 +26,37 @@ void setup()
   currentImage=1;
 //get current 'time
 timePoint=millis();
+  noCursor();
   
+  /**
+listing-files taken from http://wiki.processing.org/index.php?title=Listing_files
+@author antiplastik
+*/
+ 
+// we'll have a look in the data folder
+java.io.File folder = new java.io.File(dataPath(""));
+ 
+// let's set a filter (which returns true if file's extension is .png)
+java.io.FilenameFilter pngFilter = new java.io.FilenameFilter() {
+public boolean accept(File dir, String name) {
+    return name.toLowerCase().endsWith(".png");
+  }
+};
+ 
+// list the files in the data folder, passing the filter as parameter
+String[] filenames = folder.list(pngFilter);
+ 
+// get and display the number of jpg files
+println(filenames.length + " png files in specified directory");
+println((filenames.length - 2) + " mosaic files"); // retrait des 2 fichiers utilisés pour le spot 
+ 
+// display the filenames
+for (int i = 0; i < filenames.length; i++) {
+  println(filenames[i]);
+}
+
+maxImages = (filenames.length - 2);
+
 }
 void draw()
 {
@@ -43,24 +73,24 @@ void draw()
   noStroke();
   fill(255);
   //ellipse(mouseX, mouseY, 400, 400);
-  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
+//  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
-  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
+//  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
-  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
+//  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
-  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
+//  image(s, map(x1,0,1,0,width)-200, map(y1,1,0,0,height)-200,400,400);
   image(s, map(x2,0,1,0,width)-200, map(y2,1,0,0,height)-200,400,400);
-  blend(a, 0, 0, 3072, 768, 0, 0, 3072, 768, DARKEST);
+  blend(a, 0, 0, 1280, 800, 0, 0, 1280, 800, DARKEST);
 }
 
 
 void oscEvent(OscMessage theOscMessage) {
 
     String addr = theOscMessage.addrPattern();
-    println(addr);
     if (debug) {
-      text("message OSC : "+ addr , 20, 20);
+    println(addr);
+           text("message OSC : "+ addr , 20, 20);
     }
     
     if(theOscMessage.checkAddrPattern("/1/xy")==true) {
@@ -92,7 +122,7 @@ void showNext(){
   String imageFilename;
  
   //load file
-  imageFilename="mosa"+str(currentImage) + ".png";
+  imageFilename="mosa"+str(currentImage-1) + ".png";
   a=loadImage(imageFilename);
   
   //set up for next image
@@ -103,4 +133,3 @@ void showNext(){
   //image(oneImage, 0, 0);
  
 }
-
